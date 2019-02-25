@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - ./mongodb/data/db:/data/db
+      - ./docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
+    command: ["mongod", "--smallfiles", "--logpath=/dev/null"]
+
+  example-application:
+    build: ./
+    volumes:
+      - ./logs
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongo
+    restart: always
+    links:
+      - mongo

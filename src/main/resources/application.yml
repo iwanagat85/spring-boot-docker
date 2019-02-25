@@ -1,0 +1,9 @@
+spring.application:
+  name: example-application
+
+spring.data.mongodb:
+  uri: mongo:27017
+  database: example
+
+server:
+  port: 8080
