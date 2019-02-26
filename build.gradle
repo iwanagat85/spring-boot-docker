@@ -27,11 +27,11 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = '1.8'
 }
 
 compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = '1.8'
 }
 
 repositories {
@@ -51,4 +51,17 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'junit:junit:4.12'
+}
+
+task copyWaitSh(type: Copy) {
+    from "${rootDir}/wait.sh"
+    into "${buildDir}/libs"
+}
+
+task execDockerCompose(type: Exec) {
+    commandLine 'docker-compose', 'build', '--force'
+}
+
+task dockerComposeBuild(group: 'build', type: GradleBuild) {
+    tasks = ['clean', 'build', 'jar', 'copyWaitSh', 'execDockerCompose']
 }

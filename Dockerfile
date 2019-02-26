@@ -1,7 +1,6 @@
 FROM openjdk:8-jdk-alpine
 
-COPY ./ /app
+COPY ./build/libs /app
 WORKDIR /app
-RUN ["./gradlew", "--stacktrace", "clean", "build", "bootJar"]
 
-CMD ["sh", "wait.sh", "java", "-jar", "./build/libs/spring-boot-docker-1.0.0-SNAPSHOT.jar"]
+CMD ["sh", "wait.sh", "mongo:27017", "java", "-jar", "spring-boot-docker-1.0.0-SNAPSHOT.jar"]

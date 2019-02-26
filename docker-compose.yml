@@ -11,8 +11,9 @@ services:
 
   example-application:
     build: ./
+    image: iwanagat85:example-application
     volumes:
-      - ./logs
+      - ./logs:/app/logs
     ports:
       - 8080:8080
     depends_on:
