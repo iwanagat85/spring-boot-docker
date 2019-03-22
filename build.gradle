@@ -53,15 +53,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-task copyWaitSh(type: Copy) {
-    from "${rootDir}/wait.sh"
-    into "${buildDir}/libs"
-}
-
 task execDockerCompose(type: Exec) {
     commandLine 'docker-compose', 'build', '--force'
 }
 
-task dockerComposeBuild(group: 'build', type: GradleBuild) {
-    tasks = ['clean', 'build', 'jar', 'copyWaitSh', 'execDockerCompose']
+task buildDockerImages(group: 'build', type: GradleBuild) {
+    tasks = ['clean', 'build', 'bootJar', 'execDockerCompose']
 }
